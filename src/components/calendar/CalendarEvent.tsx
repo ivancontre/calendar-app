@@ -1,11 +1,11 @@
-import React, { FunctionComponent } from 'react';
-import { CalendarEv } from '../../config/react-big-calendar';
+import React from 'react';
+import { CalendarEv } from '../../store/calendar/types';
 
 interface CalendarEventProps  {
     event: CalendarEv
 };
 
-export const CalendarEvent: FunctionComponent<CalendarEventProps> = ({ event }: CalendarEventProps) => {
+export const CalendarEvent: React.FC <CalendarEventProps> = ({ event }: CalendarEventProps) => {
     
     const { title, user } = event;
 

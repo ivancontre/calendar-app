@@ -1,7 +1,7 @@
-import React, { FC, ReactElement } from 'react';
+import React from 'react';
 import './auth.css';
 
-export const RegisterScreen: FC = (): ReactElement => {
+export const RegisterScreen: React.FC = () => {
     return (
         <div className="container login-container">
             <div className="row">

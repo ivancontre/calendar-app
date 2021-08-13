@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 import { Calendar, momentLocalizer  } from 'react-big-calendar';
 import moment from 'moment';
 
@@ -8,29 +8,37 @@ import 'moment/locale/es';
 import { Navbar } from '../ui/Navbar';
 import { messages } from '../../helpers/calendar-messages-es';
 import { View, stringOrDate } from 'react-big-calendar';
-import { CalendarEv } from '../../config/react-big-calendar';
+import { CalendarEv } from '../../store/calendar/types';
 import { CalendarEvent } from './CalendarEvent';
 import { CalendarModal } from './CalendarModal';
+import { useDispatch, useSelector } from 'react-redux';
+import { openModal } from '../../store/modal/actions';
+import { setActive } from '../../store/calendar/actions';
+import { AddNewFab } from '../ui/AddNewFab';
+import { RootState } from '../../store';
 
-export const CalendarScreen: FC = () => {
+export const CalendarScreen: React.FC = () => {
 
     moment.locale('es');
     const localizer = momentLocalizer(moment);
 
     const [lastView, setLastView] = useState<View>(localStorage.getItem('lastView') as View || 'month');
 
-    const onDoubleClick = (event: CalendarEv): void => {
-        console.log(event);
+    const dispatch = useDispatch();    
 
+    const { calendar } = useSelector((state: RootState) => state);
+    const events: CalendarEv[] = calendar.events;
+
+    const onDoubleClick = (event: CalendarEv): void => {
+        dispatch(openModal());
     };
 
     const onSelectEvent = (event: CalendarEv): void => {
-        console.log(event);
+        dispatch(setActive(event));
 
     };
 
     const onViewChange = (view: View): void => {
-        console.log(view);
         setLastView(view);
         localStorage.setItem('lastView', view);
     };
@@ -47,34 +55,7 @@ export const CalendarScreen: FC = () => {
         return {
             style
         };
-    };
-
-    const item: CalendarEv = {
-        title: 'Cumpleaños del jefe',
-        start: moment().toDate(),
-        endDate: moment().add(2, 'hours').toDate(),
-        user: {
-            _id: '123',
-            name: 'Kuky'
-        },
-        notes: 'Comprar pan'
-    };
-
-    const events: CalendarEv[] = [
-        item
-
-        /*
-
-        title: 'Cumpleaños del jefe',
-        start: moment().toDate(),
-        end: moment().add(2, 'hours').toDate(),
-        bgColor: '#fafafa',
-        notes: 'Comprar pastel',
-        user: {
-            _id: '123',
-            name: 'Kuky'
-        }*/
-    ];
+    };    
     
     return (
         <div className="calendar-screen">
@@ -97,6 +78,8 @@ export const CalendarScreen: FC = () => {
             />
 
             <CalendarModal />
+
+            <AddNewFab />
 
         </div>
     )
