@@ -1,9 +1,10 @@
 import moment from 'moment';
-import { CalendarActionTypes, calendarAddNew, CalendarEv, calendarSetActive} from "./types";
+import { CalendarActionTypes, calendarAddNew, calendarClearActive, CalendarEv, calendarSetActive, calendarUpdate} from "./types";
 
 
 const events: CalendarEv[] = [{
-    title: 'Cumpleaños del jefe',
+    id: new Date().getTime().toString(),
+    title: 'Supermercado',
     start: moment().toDate(),
     endDate: moment().add(2, 'hours').toDate(),
     user: {
@@ -25,12 +26,26 @@ export const calendarReducer = (state = initialState, action: CalendarActionType
             return {
                 ...state,
                 events: [action.payload, ...state.events]
-            }
+            };
 
         case calendarSetActive:
             return {
                 ...state,
                 activeEvent: action.payload
+            };
+
+        case calendarClearActive:
+            return {
+                ...state,
+                activeEvent: null
+            };
+
+        case calendarUpdate:
+            return {
+                ...state,
+                events: state.events.map(
+                    (e: CalendarEv) => (e.id === action.payload.id) ? action.payload : e
+                )
             }
         default:
             return state;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calendar, momentLocalizer  } from 'react-big-calendar';
+import { Calendar, momentLocalizer, EventPropGetter  } from 'react-big-calendar';
 import moment from 'moment';
 
 import 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -35,7 +35,6 @@ export const CalendarScreen: React.FC = () => {
 
     const onSelectEvent = (event: CalendarEv): void => {
         dispatch(setActive(event));
-
     };
 
     const onViewChange = (view: View): void => {
@@ -43,8 +42,8 @@ export const CalendarScreen: React.FC = () => {
         localStorage.setItem('lastView', view);
     };
 
-    const eventStyleGetter = (event: CalendarEv, start: stringOrDate, end: stringOrDate, isSelected: boolean): Object => {
-        const style: Object = {
+    const eventStyleGetter = (event: CalendarEv, start: stringOrDate, end: stringOrDate, isSelected: boolean): React.HTMLAttributes<HTMLDivElement> => {
+        const style = {
             backgroundColor: '#367CF7',
             borderRadius: '0px',
             opacity: 0.8,

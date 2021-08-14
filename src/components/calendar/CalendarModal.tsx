@@ -12,7 +12,8 @@ import { RootState } from '../../store';
 import { useSelector, useDispatch } from 'react-redux';
 import { closeModal } from '../../store/modal/actions';
 import { CalendarEv } from '../../store/calendar/types';
-import { addNew } from '../../store/calendar/actions';
+import { addNew, clearActive, update } from '../../store/calendar/actions';
+import { useEffect } from 'react';
 
 const customStyles = {
     content: {
@@ -47,9 +48,28 @@ export const CalendarModal: React.FC = () => {
 
     const { title, notes, start, endDate } = formValues;
 
-    const { modal } = useSelector((state: RootState) => state);
+    const { modal, calendar } = useSelector((state: RootState) => state);
+
+    const { activeEvent } = calendar;
 
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if ( activeEvent ) {
+            const item = {
+                ...activeEvent,
+                start: moment(activeEvent.start),
+                endDate: moment(activeEvent.endDate)
+            };
+            console.log(initValuesForm)
+            console.log(item)
+            setFormValues(item);
+            console.log(formValues)
+        } else {
+            setFormValues( initValuesForm );
+        }
+
+    }, [activeEvent, setFormValues]);
 
     const handleInputChange = (event: FormEvent<HTMLInputElement> | FormEvent<HTMLTextAreaElement>): void => {
         const target = event.target as HTMLTextAreaElement | HTMLTextAreaElement;
@@ -61,9 +81,11 @@ export const CalendarModal: React.FC = () => {
     };
 
     const close = (): void => {
-        setFormValues(initValuesForm);
+        
         dispatch(closeModal());
-
+        
+        setFormValues(initValuesForm);
+        dispatch(clearActive());
     };
 
     const handleStartDateChange = (event: string | moment.Moment): void => {
@@ -100,19 +122,33 @@ export const CalendarModal: React.FC = () => {
             return;
         }
         
+        if (!activeEvent) { // creando un nuevo evento
+            const item: CalendarEv = {
+                id: new Date().getTime().toString(),
+                ...formValues,
+                start: formValues.start.toDate(),
+                endDate: formValues.endDate.toDate(),
+                user: {
+                    _id: '124',
+                    name: 'ivan'
+                }
+            };
+    
+            dispatch(addNew(item));
 
-        const item: CalendarEv = {
-            ...formValues,
-            start: formValues.start.toDate(),
-            endDate: formValues.endDate.toDate(),
-            user: {
-                _id: '124',
-                name: 'ivan'
-            }
-        };
+        } else { // actualizando un evento
+            const item: CalendarEv = {
+                ...formValues,
+                start: formValues.start.toDate(),
+                endDate: formValues.endDate.toDate(),
+                user: {
+                    _id: '124',
+                    name: 'ivan'
+                }
+            };
 
-        dispatch(addNew(item));
-
+            dispatch(update(item));
+        }
 
         setTitleValid(true);
         close();
@@ -132,7 +168,7 @@ export const CalendarModal: React.FC = () => {
             className="modal"
             overlayClassName="modal-fondo"
         > 
-            <h1> Nuevo evento </h1>
+            <h1> {activeEvent ? 'Editar evento' : 'Nuevo evento'} </h1>
             <hr />
             <form className="container" onSubmit={ handleSubmitForm } noValidate>
 
@@ -145,7 +181,7 @@ export const CalendarModal: React.FC = () => {
                     /> */}
                     <Datetime 
                         onChange={ handleStartDateChange }
-                        value={ dateStart }
+                        value={ start }
                         //isValidDate={ validationDateStart }
                     />
                 </div>
@@ -160,7 +196,7 @@ export const CalendarModal: React.FC = () => {
                     /> */}
                     <Datetime 
                         onChange={ handleEndDateChange }
-                        value={ dateEnd }
+                        value={ endDate }
                         isValidDate={ validationDateEnd }
                         
                     />

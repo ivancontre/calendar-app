@@ -1,4 +1,4 @@
-import { calendarAddNew, CalendarAddNewAction, CalendarEv, calendarSetActive, CalendarSetActiveAction } from './types';
+import { calendarAddNew, CalendarAddNewAction, calendarClearActive, CalendarClearActiveAction, CalendarEv, calendarSetActive, CalendarSetActiveAction, calendarUpdate, CalendarUpdateAction } from './types';
 
 
 export const addNew = (calendarEv: CalendarEv): CalendarAddNewAction => {
@@ -11,6 +11,19 @@ export const addNew = (calendarEv: CalendarEv): CalendarAddNewAction => {
 export const setActive = (calendarEv: CalendarEv): CalendarSetActiveAction => {
     return {
         type: calendarSetActive,
+        payload: calendarEv
+    }
+};
+
+export const clearActive = (): CalendarClearActiveAction => {
+    return {
+        type: calendarClearActive
+    }
+};
+
+export const update = (calendarEv: CalendarEv): CalendarUpdateAction => {
+    return {
+        type: calendarUpdate,
         payload: calendarEv
     }
 };
