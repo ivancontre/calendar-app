@@ -1,4 +1,4 @@
-import { ModalCloseAction, ModalOpenAction, uiCloseModal, uiOpenModal } from "./types"
+import { ModalCloseAction, ModalOpenAction, uiCloseModal, uiOpenModal } from './types';
 
 export const openModal = (): ModalOpenAction => {
     return {

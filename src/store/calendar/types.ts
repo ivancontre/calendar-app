@@ -2,6 +2,7 @@ export const calendarAddNew = '[calendar] Add new';
 export const calendarSetActive = '[calendar] Set active';
 export const calendarClearActive = '[calendar] Clear active';
 export const calendarUpdate = '[calendar] Update';
+export const calendarDelete = '[calendar] Delete';
 
 interface CalendarUser {
     _id: string;
@@ -41,4 +42,9 @@ export interface CalendarUpdateAction {
     payload: CalendarEv
 };
 
-export type CalendarActionTypes = CalendarAddNewAction | CalendarSetActiveAction | CalendarClearActiveAction | CalendarUpdateAction;
+export interface CalendarDeleteAction {
+    type: typeof calendarDelete,
+    payload: string
+};
+
+export type CalendarActionTypes = CalendarAddNewAction | CalendarSetActiveAction | CalendarClearActiveAction | CalendarUpdateAction | CalendarDeleteAction;

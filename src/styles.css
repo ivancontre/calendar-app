@@ -73,3 +73,11 @@ html, body {
     position: fixed;
     right: 23px;
 }
+
+.fab-danger {
+    border-radius: 50%;
+    bottom: 23px;
+    font-size: 23px;
+    position: fixed;
+    left: 23px;
+}

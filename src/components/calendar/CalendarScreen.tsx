@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calendar, momentLocalizer, EventPropGetter  } from 'react-big-calendar';
+import { Calendar, momentLocalizer, SlotInfo } from 'react-big-calendar';
 import moment from 'moment';
 
 import 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -16,6 +16,7 @@ import { openModal } from '../../store/modal/actions';
 import { setActive } from '../../store/calendar/actions';
 import { AddNewFab } from '../ui/AddNewFab';
 import { RootState } from '../../store';
+import { DeleteFab } from '../ui/DeleteFab';
 
 export const CalendarScreen: React.FC = () => {
 
@@ -54,7 +55,23 @@ export const CalendarScreen: React.FC = () => {
         return {
             style
         };
-    };    
+    };  
+    
+    const onSelectSlot = (info: SlotInfo) => {
+        const item: CalendarEv = {
+            title: '',
+            start: info.start as Date,
+            endDate: info.end as Date,
+            user: {
+                _id: '123',
+                name: 'ivan'
+            },
+            notes: ''
+        }
+        dispatch(setActive(item));
+        dispatch(openModal());
+
+    };
     
     return (
         <div className="calendar-screen">
@@ -74,11 +91,14 @@ export const CalendarScreen: React.FC = () => {
                 components={{
                     event: CalendarEvent
                 }}
+                onSelectSlot={ onSelectSlot }
+                selectable={ true }
             />
 
             <CalendarModal />
 
             <AddNewFab />
+            { calendar.activeEvent?.id && <DeleteFab /> }
 
         </div>
     )

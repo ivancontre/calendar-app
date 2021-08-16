@@ -32,7 +32,7 @@ const now: moment.Moment = moment().minutes(0).seconds(0).add(1, 'hours');
 const nowMoreOneHour: moment.Moment = now.clone().add(1, 'hours');
 
 const initValuesForm = {
-    title: 'Evento',
+    title: '',
     notes: '',
     start: now,
     endDate: nowMoreOneHour
@@ -61,10 +61,9 @@ export const CalendarModal: React.FC = () => {
                 start: moment(activeEvent.start),
                 endDate: moment(activeEvent.endDate)
             };
-            console.log(initValuesForm)
-            console.log(item)
+            
             setFormValues(item);
-            console.log(formValues)
+
         } else {
             setFormValues( initValuesForm );
         }
@@ -80,12 +79,12 @@ export const CalendarModal: React.FC = () => {
         });
     };
 
-    const close = (): void => {
-        
+    const close = (): void => {        
         dispatch(closeModal());
-        
-        setFormValues(initValuesForm);
-        dispatch(clearActive());
+        setTimeout(() => {
+            dispatch(clearActive());
+            setFormValues(initValuesForm); 
+        }, 200);        
     };
 
     const handleStartDateChange = (event: string | moment.Moment): void => {
@@ -122,7 +121,20 @@ export const CalendarModal: React.FC = () => {
             return;
         }
         
-        if (!activeEvent) { // creando un nuevo evento
+        if (activeEvent.id) { // creando un nuevo evento
+            const item: CalendarEv = {
+                ...formValues,
+                start: formValues.start.toDate(),
+                endDate: formValues.endDate.toDate(),
+                user: {
+                    _id: '124',
+                    name: 'ivan'
+                }
+            };
+
+            dispatch(update(item));    
+
+        } else { // actualizando un evento
             const item: CalendarEv = {
                 id: new Date().getTime().toString(),
                 ...formValues,
@@ -135,19 +147,6 @@ export const CalendarModal: React.FC = () => {
             };
     
             dispatch(addNew(item));
-
-        } else { // actualizando un evento
-            const item: CalendarEv = {
-                ...formValues,
-                start: formValues.start.toDate(),
-                endDate: formValues.endDate.toDate(),
-                user: {
-                    _id: '124',
-                    name: 'ivan'
-                }
-            };
-
-            dispatch(update(item));
         }
 
         setTitleValid(true);
@@ -156,7 +155,7 @@ export const CalendarModal: React.FC = () => {
 
     const validationDateEnd = (currentDate: moment.Moment): boolean => {
         return currentDate.isAfter(moment(dateStart));
-    }
+    };
 
     return (
         <Modal
@@ -168,7 +167,7 @@ export const CalendarModal: React.FC = () => {
             className="modal"
             overlayClassName="modal-fondo"
         > 
-            <h1> {activeEvent ? 'Editar evento' : 'Nuevo evento'} </h1>
+            <h1> {activeEvent?.id ? 'Editar evento' : 'Nuevo evento'} </h1>
             <hr />
             <form className="container" onSubmit={ handleSubmitForm } noValidate>
 

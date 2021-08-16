@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { CalendarActionTypes, calendarAddNew, calendarClearActive, CalendarEv, calendarSetActive, calendarUpdate} from "./types";
+import { CalendarActionTypes, calendarAddNew, calendarClearActive, calendarDelete, CalendarEv, calendarSetActive, calendarUpdate} from "./types";
 
 
 const events: CalendarEv[] = [{
@@ -46,6 +46,13 @@ export const calendarReducer = (state = initialState, action: CalendarActionType
                 events: state.events.map(
                     (e: CalendarEv) => (e.id === action.payload.id) ? action.payload : e
                 )
+            };
+
+        case calendarDelete:
+            return {
+                ...state,
+                events: state.events.filter((e: CalendarEv) => e.id !== action.payload),
+                activeEvent: null
             }
         default:
             return state;
