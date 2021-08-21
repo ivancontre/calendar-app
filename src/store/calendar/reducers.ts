@@ -9,7 +9,8 @@ const events: CalendarEv[] = [{
     endDate: moment().add(2, 'hours').toDate(),
     user: {
         _id: '123',
-        name: 'Kuky'
+        name: 'Kuky',
+        email: 'ivanc.contre@gmail.com'
     },
     notes: 'Comprar pan'
 }];

@@ -1,9 +1,9 @@
-import React, { FC, ReactElement } from 'react';
+import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { LoginScreen } from '../components/auth/LoginScreen';
 import { RegisterScreen } from '../components/auth/RegisterScreen';
 
-export const AuthRouter: FC = (): ReactElement => {
+export const AuthRouter: React.FC = () => {
     return (
             <Switch>
 

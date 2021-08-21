@@ -3,9 +3,12 @@ import thunk from 'redux-thunk';
 
 import { modalReducer } from './modal/reducers';
 import { calendarReducer } from './calendar/reducers';
+import { authReducer } from './auth/reducer';
 
 import { ModalState } from './modal/types';
 import { CalendarState } from './calendar/types';
+import { CalendarUser } from './auth/types';
+
 
 declare global {
     interface Window {
@@ -17,12 +20,14 @@ const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOO
 
 export interface RootState {
     modal: ModalState;
-    calendar: CalendarState
+    calendar: CalendarState;
+    auth: CalendarUser;
 }
 
 export const rootReducer = combineReducers({
     modal: modalReducer,
-    calendar: calendarReducer
+    calendar: calendarReducer,
+    auth: authReducer
 });
 
 export const store = createStore(

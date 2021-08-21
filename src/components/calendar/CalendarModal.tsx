@@ -128,7 +128,8 @@ export const CalendarModal: React.FC = () => {
                 endDate: formValues.endDate.toDate(),
                 user: {
                     _id: '124',
-                    name: 'ivan'
+                    name: 'ivan',
+                    email: 'ivanc.contre@gmail.com'
                 }
             };
 
@@ -142,7 +143,8 @@ export const CalendarModal: React.FC = () => {
                 endDate: formValues.endDate.toDate(),
                 user: {
                     _id: '124',
-                    name: 'ivan'
+                    name: 'ivan',
+                    email: 'ivanc.contre@gmail.com'
                 }
             };
     

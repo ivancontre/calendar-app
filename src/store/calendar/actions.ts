@@ -1,4 +1,15 @@
-import { calendarAddNew, CalendarAddNewAction, calendarClearActive, CalendarClearActiveAction, calendarDelete, CalendarDeleteAction, CalendarEv, calendarSetActive, CalendarSetActiveAction, calendarUpdate, CalendarUpdateAction } from './types';
+import {    calendarAddNew, 
+            CalendarAddNewAction, 
+            calendarClearActive, 
+            CalendarClearActiveAction, 
+            calendarDelete, 
+            CalendarDeleteAction, 
+            CalendarEv, 
+            calendarSetActive, 
+            CalendarSetActiveAction, 
+            calendarUpdate, 
+            CalendarUpdateAction 
+} from './types';
 
 
 export const addNew = (calendarEv: CalendarEv): CalendarAddNewAction => {
