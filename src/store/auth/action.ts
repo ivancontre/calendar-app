@@ -1,98 +1,121 @@
 //import { ThunkDispatch } from "redux-thunk";
+import { Dispatch } from "react";
 import Swal from "sweetalert2";
 import { runFetch } from "../../helpers/fetch";
-import { authCheckingFinish, authLogin, authLogout, CalendarUser } from "./types";
+import { AuthActionTypes, 
+        authCheckingFinish, 
+        authLogin, 
+        authLogout, 
+        CalendarUser 
+} from "./types";
 
 export const startLogin = (email: string, password: string) => {
-    return async (dispatch: any) => {
-        console.log(email, password);
+    return async (dispatch: Dispatch<AuthActionTypes>) => {
 
-        const resp = await runFetch('auth', { email, password }, 'POST');
-        const respJson = await resp.json();
+        try {
+            const resp = await runFetch('auth', { email, password }, 'POST');
+            const respJson = await resp.json();
 
-        console.log(respJson)
+            if (respJson.ok) {
+                localStorage.setItem('token', respJson.token);
+                localStorage.setItem('token-init-date', new Date().getTime().toString());
 
-        if (respJson.ok) {
-            localStorage.setItem('token', respJson.token);
-            localStorage.setItem('token-init-date', new Date().getTime().toString());
-
-            dispatch(login({
-                _id: respJson.body.uid,
-                name: respJson.body.name,
-                email: respJson.body.email
-            }));
-        } else {
-            Swal.fire('Error', respJson.msg, 'error')
+                dispatch(login({
+                    _id: respJson.body.uid,
+                    name: respJson.body.name,
+                    email: respJson.body.email
+                }));
+            } else {
+                Swal.fire('Error', respJson.msg, 'error');
+            }
+            
+        } catch (error) {
+            console.log(error);
+            Swal.fire('Error', 'Error en la aplicación', 'error');
         }
+        
     }
 };
 
 export const startRegister = (name: string, email: string, password: string) => {
-    return async (dispatch: any) => {
-        const resp = await runFetch('auth/register', { name, email, password }, 'POST');
-        const respJson = await resp.json();
+    return async (dispatch: Dispatch<AuthActionTypes>) => {
 
-        if (respJson.ok) {
-            localStorage.setItem('token', respJson.token);
-            localStorage.setItem('token-init-date', new Date().getTime().toString());
+        try {
+            const resp = await runFetch('auth/register', { name, email, password }, 'POST');
+            const respJson = await resp.json();
 
-            dispatch(login({
-                _id: respJson.body.uid,
-                name: respJson.body.name,
-                email: respJson.body.email
-            }));
+            if (respJson.ok) {
+                localStorage.setItem('token', respJson.token);
+                localStorage.setItem('token-init-date', new Date().getTime().toString());
 
-        } else {
-            Swal.fire('Error', respJson.msg, 'error');
+                dispatch(login({
+                    _id: respJson.body.uid,
+                    name: respJson.body.name,
+                    email: respJson.body.email
+                }));
+
+            } else {
+                Swal.fire('Error', respJson.msg, 'error');
+            }
+        } catch (error) {
+            console.log(error);
+            Swal.fire('Error', 'Error en la aplicación', 'error');
         }
+        
     }
 };
 
 export const startChecking = () => {
-    return async (dispatch: any) => {
-        const token = localStorage.getItem('token') as string;
+    return async (dispatch: Dispatch<AuthActionTypes>) => {
 
-        const resp = await runFetch('auth/renew-token',  {}, 'GET', token);
-        const respJson = await resp.json();
+        try {
+            const token = localStorage.getItem('token') as string;
 
-        if (respJson.ok) {
-            localStorage.setItem('token', respJson.token);
-            localStorage.setItem('token-init-date', new Date().getTime().toString());
+            const resp = await runFetch('auth/renew-token',  {}, 'GET', token);
+            const respJson = await resp.json();
 
-            dispatch(login({
-                _id: respJson.body.uid,
-                name: respJson.body.name,
-                email: respJson.body.email
-            }));
+            if (respJson.ok) {
+                localStorage.setItem('token', respJson.token);
+                localStorage.setItem('token-init-date', new Date().getTime().toString());
 
-        } else {
-            dispatch(checkingFinish());
-        }
+                dispatch(login({
+                    _id: respJson.body.uid,
+                    name: respJson.body.name,
+                    email: respJson.body.email
+                }));
+
+            } else {
+                dispatch(checkingFinish());
+            }
+        } catch (error) {
+            console.log(error);
+            Swal.fire('Error', 'Error en la aplicación', 'error');
+        }        
 
     }   
 };
 
 export const startLogout = () => {
-    return (dispatch: any) => {
+    return (dispatch: Dispatch<AuthActionTypes>) => {
         localStorage.clear();
         dispatch(logout());
     }
 };
 
-const checkingFinish = () => {
+const checkingFinish = (): AuthActionTypes => {
     return {
         type: authCheckingFinish
     }
 };
 
-const login = (user: CalendarUser) => {
+const login = (user: CalendarUser): AuthActionTypes => {
     return {
         type: authLogin,
         payload: user
     }
 };
 
-const logout = () => {
+const logout = (): AuthActionTypes => {
     return {
         type: authLogout
     }

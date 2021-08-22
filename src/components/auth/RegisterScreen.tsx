@@ -108,6 +108,7 @@ export const RegisterScreen: React.FC = () => {
                         </div>
 
                         <Link
+                            className="link-register"
                             to="/auth/login"
                         >
                             ¿Ya registrado?

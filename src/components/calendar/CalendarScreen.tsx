@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Calendar, momentLocalizer, SlotInfo } from 'react-big-calendar';
 import moment from 'moment';
 
@@ -13,10 +13,11 @@ import { CalendarEvent } from './CalendarEvent';
 import { CalendarModal } from './CalendarModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { openModal } from '../../store/modal/actions';
-import { setActive } from '../../store/calendar/actions';
+import { setActive, startLoad } from '../../store/calendar/actions';
 import { AddNewFab } from '../ui/AddNewFab';
 import { RootState } from '../../store';
 import { DeleteFab } from '../ui/DeleteFab';
+import { Filter } from '../filter/Filter';
 
 export const CalendarScreen: React.FC = () => {
 
@@ -25,9 +26,13 @@ export const CalendarScreen: React.FC = () => {
 
     const [lastView, setLastView] = useState<View>(localStorage.getItem('lastView') as View || 'month');
 
-    const dispatch = useDispatch();    
+    const dispatch = useDispatch();   
 
-    const { calendar } = useSelector((state: RootState) => state);
+    useEffect(() => {
+        dispatch(startLoad());
+    }, [dispatch]);     
+
+    const { calendar, auth } = useSelector((state: RootState) => state);
     const events: CalendarEv[] = calendar.events;
 
     const onDoubleClick = (event: CalendarEv): void => {
@@ -44,8 +49,9 @@ export const CalendarScreen: React.FC = () => {
     };
 
     const eventStyleGetter = (event: CalendarEv, start: stringOrDate, end: stringOrDate, isSelected: boolean): React.HTMLAttributes<HTMLDivElement> => {
+
         const style = {
-            backgroundColor: '#367CF7',
+            backgroundColor: auth._id === event.user._id ? '#367CF7': '#465660',
             borderRadius: '0px',
             opacity: 0.8,
             display: 'block',
@@ -63,9 +69,9 @@ export const CalendarScreen: React.FC = () => {
             start: info.start as Date,
             endDate: info.end as Date,
             user: {
-                _id: '123',
-                name: 'ivan',
-                email: 'ivanc.contre@gmail.com'
+                _id: auth._id,
+                name: auth.name,
+                email: auth.email
             },
             notes: ''
         }
@@ -77,6 +83,8 @@ export const CalendarScreen: React.FC = () => {
     return (
         <div className="calendar-screen">
             <Navbar />
+
+            {/* <Filter /> */}
 
             <Calendar
                 localizer={ localizer }

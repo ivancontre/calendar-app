@@ -2,8 +2,11 @@ import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
+
 import { RootState } from '../../store';
 import { startLogout } from '../../store/auth/action';
+import { reset } from '../../store/calendar/actions';
 
 export const Navbar: React.FC = () => {
 
@@ -12,7 +15,19 @@ export const Navbar: React.FC = () => {
     const dispatch = useDispatch();
 
     const handleLogout = () => {
-        dispatch(startLogout());
+        Swal.fire({
+            title: '¿Seguro que desea salir?',
+            showCancelButton: true,
+            confirmButtonText: `Sí`
+        }).then(result => { 
+            if (result.isConfirmed) {
+                dispatch(startLogout());
+                dispatch(reset());
+            }
+
+        }).catch(error => {
+            Swal.fire('Error', error, 'error');
+        });        
     };
 
     return (

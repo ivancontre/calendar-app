@@ -13,7 +13,6 @@ html, body {
 }
 
 /* Modal */
-/* Modal */
 .ReactModalPortal > div{
     opacity: 0;
 }
@@ -80,4 +79,12 @@ html, body {
     font-size: 23px;
     position: fixed;
     left: 23px;
+}
+
+.creator-event {
+    font-style: oblique
+}
+
+a.link-register {
+    color: white
 }

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 
 import { RootState } from '../../store';
-import { deleteItem } from '../../store/calendar/actions';
+import { startDelete } from '../../store/calendar/actions';
 
 
 export const DeleteFab: React.FC = () => {
@@ -25,7 +25,7 @@ export const DeleteFab: React.FC = () => {
                 confirmButtonText: `Sí`
             }).then(result => { 
                 if (result.isConfirmed && activeEvent?.id) {
-                    dispatch(deleteItem(activeEvent.id));
+                    dispatch(startDelete(activeEvent.id));
                 }
 
             }).catch(error => {

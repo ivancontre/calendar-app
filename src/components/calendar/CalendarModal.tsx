@@ -12,7 +12,7 @@ import { RootState } from '../../store';
 import { useSelector, useDispatch } from 'react-redux';
 import { closeModal } from '../../store/modal/actions';
 import { CalendarEv } from '../../store/calendar/types';
-import { addNew, clearActive, update } from '../../store/calendar/actions';
+import { startAddNew, clearActive, startUpdate } from '../../store/calendar/actions';
 import { useEffect } from 'react';
 
 const customStyles = {
@@ -48,7 +48,7 @@ export const CalendarModal: React.FC = () => {
 
     const { title, notes, start, endDate } = formValues;
 
-    const { modal, calendar } = useSelector((state: RootState) => state);
+    const { modal, calendar, auth } = useSelector((state: RootState) => state);
 
     const { activeEvent } = calendar;
 
@@ -121,34 +121,34 @@ export const CalendarModal: React.FC = () => {
             return;
         }
         
-        if (activeEvent.id) { // creando un nuevo evento
-            const item: CalendarEv = {
-                ...formValues,
-                start: formValues.start.toDate(),
-                endDate: formValues.endDate.toDate(),
-                user: {
-                    _id: '124',
-                    name: 'ivan',
-                    email: 'ivanc.contre@gmail.com'
-                }
-            };
-
-            dispatch(update(item));    
-
-        } else { // actualizando un evento
+        if (activeEvent?.id) { // actualizando un evento
             const item: CalendarEv = {
                 id: new Date().getTime().toString(),
                 ...formValues,
                 start: formValues.start.toDate(),
                 endDate: formValues.endDate.toDate(),
                 user: {
-                    _id: '124',
-                    name: 'ivan',
-                    email: 'ivanc.contre@gmail.com'
+                    _id: auth._id,
+                    name: auth.name,
+                    email: auth.email
+                }
+            };
+
+            dispatch(startUpdate(item));    
+
+        } else { // creando un nuevo evento
+            const item: CalendarEv = {                
+                ...formValues,
+                start: formValues.start.toDate(),
+                endDate: formValues.endDate.toDate(),
+                user: {
+                    _id: auth._id,
+                    name: auth.name,
+                    email: auth.email
                 }
             };
     
-            dispatch(addNew(item));
+            dispatch(startAddNew(item));
         }
 
         setTitleValid(true);

@@ -1,19 +1,7 @@
-import moment from 'moment';
-import { CalendarActionTypes, calendarAddNew, calendarClearActive, calendarDelete, CalendarEv, calendarSetActive, calendarUpdate} from "./types";
+import { CalendarActionTypes, calendarAddNew, calendarClearActive, calendarDelete, CalendarEv, calendarLoad, calendarReset, calendarSetActive, calendarUpdate} from "./types";
 
 
-const events: CalendarEv[] = [{
-    id: new Date().getTime().toString(),
-    title: 'Supermercado',
-    start: moment().toDate(),
-    endDate: moment().add(2, 'hours').toDate(),
-    user: {
-        _id: '123',
-        name: 'Kuky',
-        email: 'ivanc.contre@gmail.com'
-    },
-    notes: 'Comprar pan'
-}];
+const events: CalendarEv[] = [];
 
 const initialState = {
     events,
@@ -54,7 +42,19 @@ export const calendarReducer = (state = initialState, action: CalendarActionType
                 ...state,
                 events: state.events.filter((e: CalendarEv) => e.id !== action.payload),
                 activeEvent: null
-            }
+            };
+
+        case calendarLoad:
+            return {
+                ...state,
+                events: [...action.payload]
+            };
+
+        case calendarReset:
+            return {
+                ...initialState
+            };
+
         default:
             return state;
     }
