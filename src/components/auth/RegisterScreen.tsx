@@ -17,10 +17,10 @@ export const RegisterScreen: React.FC = () => {
     };
 
     const initFormValues: RgisterForm = {
-        name: 'Cristobal',
-        email: 'cristobal@gmail.com',
-        password1: '123456',
-        password2: '123456'
+        name: '',
+        email: '',
+        password1: '',
+        password2: ''
     };
 
     const dispatch = useDispatch();

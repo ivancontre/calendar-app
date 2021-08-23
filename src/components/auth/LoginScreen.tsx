@@ -15,8 +15,8 @@ export const LoginScreen: React.FC = () => {
     };
 
     const initFormValues: LoginForm = {
-        email: 'ivanc.contre@gmail.com',
-        password: '123456'
+        email: '',
+        password: ''
     };
 
     const dispatch = useDispatch();

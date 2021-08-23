@@ -1,13 +1,19 @@
 import { applyMiddleware, combineReducers, createStore, compose } from 'redux';
 import thunk from 'redux-thunk';
 
-import { modalReducer } from './modal/reducers';
-import { calendarReducer } from './calendar/reducers';
+import { modalReducer } from './modal/reducer';
+import { calendarReducer } from './calendar/reducer';
 import { authReducer } from './auth/reducer';
+import { userReducer } from './user/reducer';
+import { filterReducer } from './filter/reducer';
 
 import { ModalState } from './modal/types';
 import { CalendarState } from './calendar/types';
 import { CalendarUser } from './auth/types';
+import { UserState } from './user/types';
+import { FilterState } from './filter/types';
+
+
 
 
 declare global {
@@ -22,12 +28,16 @@ export interface RootState {
     modal: ModalState;
     calendar: CalendarState;
     auth: CalendarUser;
+    user: UserState;
+    filter: FilterState;
 }
 
 export const rootReducer = combineReducers({
     modal: modalReducer,
     calendar: calendarReducer,
-    auth: authReducer
+    auth: authReducer,
+    user: userReducer,
+    filter: filterReducer
 });
 
 export const store = createStore(

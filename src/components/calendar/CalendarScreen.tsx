@@ -19,12 +19,14 @@ import { RootState } from '../../store';
 import { DeleteFab } from '../ui/DeleteFab';
 import { Filter } from '../filter/Filter';
 
+
 export const CalendarScreen: React.FC = () => {
 
     moment.locale('es');
     const localizer = momentLocalizer(moment);
 
     const [lastView, setLastView] = useState<View>(localStorage.getItem('lastView') as View || 'month');
+    const [eventsFiltered, setEventsFiltered] = useState<Array<CalendarEv>>([]);
 
     const dispatch = useDispatch();   
 
@@ -33,7 +35,23 @@ export const CalendarScreen: React.FC = () => {
     }, [dispatch]);     
 
     const { calendar, auth } = useSelector((state: RootState) => state);
-    const events: CalendarEv[] = calendar.events;
+
+    useEffect(() => {
+
+        setEventsFiltered(calendar.events);
+        
+    }, [calendar.events]);
+
+    const eventsAll: CalendarEv[] = calendar.events;
+
+    const { users } = useSelector((state: RootState) => state.filter);
+
+    useEffect(() => {
+
+        const events: CalendarEv[] = users.length ? eventsAll.filter(event => users.includes(event.user._id)) : eventsAll;
+        setEventsFiltered(events);   
+
+    }, [users, eventsAll]);
 
     const onDoubleClick = (event: CalendarEv): void => {
         dispatch(openModal());
@@ -84,11 +102,11 @@ export const CalendarScreen: React.FC = () => {
         <div className="calendar-screen">
             <Navbar />
 
-            {/* <Filter /> */}
+            <Filter />
 
             <Calendar
                 localizer={ localizer }
-                events={ events }
+                events={ eventsFiltered }
                 startAccessor="start"
                 endAccessor={(event: CalendarEv) => event.endDate || event.start}
                 messages={ messages }

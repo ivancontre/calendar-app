@@ -33,7 +33,7 @@ export const Navbar: React.FC = () => {
     return (
         <div className="navbar navbar-dark bg-dark mb-4">
             <span className="navbar-brand">
-                {  `Bienvenido ${name.charAt(0).toUpperCase() + name.slice(1)}` }
+                {  `Bienvenido ${name}` }
             </span>
 
             <button onClick={ handleLogout } className="btn btn-outline-danger">
