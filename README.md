@@ -9,4 +9,4 @@ Está creada en base:
 * Routers privados y públicos
 * TypeScript
 
-https://ivancontre.github.io/react-journalapp/#/auth/login
+https://ivancontre.github.io/calendar-app/#/
