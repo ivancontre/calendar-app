@@ -41,7 +41,7 @@ export const RegisterScreen: React.FC = () => {
             return false;
 
         }else if (password1 !== password2 || password1.length < 5) {
-            Swal.fire('Error', 'Contraseña debe tener al enos 6 caracteres y deben coincidir', 'error');
+            Swal.fire('Error', 'Contraseña debe tener al menos 6 caracteres y deben coincidir', 'error');
             return false;
 
         }
@@ -83,7 +83,7 @@ export const RegisterScreen: React.FC = () => {
                                 type="password"
                                 className="form-control"
                                 placeholder="Contraseña" 
-                                name="password"
+                                name="password1"
                                 value={ password1 }
                                 onChange={ handleInputChange }
                             />
