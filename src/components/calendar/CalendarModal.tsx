@@ -14,6 +14,7 @@ import { closeModal } from '../../store/modal/actions';
 import { CalendarEv } from '../../store/calendar/types';
 import { startAddNew, clearActive, startUpdate } from '../../store/calendar/actions';
 import { useEffect } from 'react';
+import { ChangeEvent } from 'react';
 
 const customStyles = {
     content: {
@@ -40,8 +41,6 @@ const initValuesForm = {
 
 export const CalendarModal: React.FC = () => {
 
-    const [dateStart, setDateStart] = useState<moment.Moment>(now);
-    const [dateEnd, setDateEnd] = useState<moment.Moment>(nowMoreOneHour);
     const [formValues, setFormValues] = useState(initValuesForm);
 
     const [titleValid, setTitleValid] = useState<boolean>(true);
@@ -70,8 +69,7 @@ export const CalendarModal: React.FC = () => {
 
     }, [activeEvent, setFormValues]);
 
-    const handleInputChange = (event: FormEvent<HTMLInputElement> | FormEvent<HTMLTextAreaElement>): void => {
-        const target = event.target as HTMLTextAreaElement | HTMLTextAreaElement;
+    const handleInputChange = ({ target }: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
 
         setFormValues({
             ...formValues,
@@ -89,7 +87,6 @@ export const CalendarModal: React.FC = () => {
 
     const handleStartDateChange = (event: string | moment.Moment): void => {
         const newEvent = typeof event == 'string' ? moment(event) : event;
-        setDateStart(newEvent);
         setFormValues({
             ...formValues,
             start: newEvent
@@ -98,7 +95,6 @@ export const CalendarModal: React.FC = () => {
 
     const handleEndDateChange = (event: string | moment.Moment): void => {
         const newEvent = typeof event == 'string' ? moment(event) : event;
-        setDateEnd(newEvent);
         setFormValues({
             ...formValues,
             endDate: newEvent
@@ -156,13 +152,12 @@ export const CalendarModal: React.FC = () => {
     };
 
     const validationDateEnd = (currentDate: moment.Moment): boolean => {
-        return currentDate.isAfter(moment(dateStart));
+        return currentDate.isAfter(moment(start));
     };
 
     return (
         <Modal
             isOpen={ modal.modalOpen }
-            //onAfterOpen={ afterOpenModal }
             onRequestClose={ close }
             style={ customStyles }
             closeTimeoutMS={ 200 }
@@ -175,26 +170,14 @@ export const CalendarModal: React.FC = () => {
 
                 <div className="form-group">
                     <label>Fecha y hora inicio</label>
-                    {/* <DateTimePicker
-                        onChange={ handleStartDateChange }
-                        value={ dateStart }
-                        className="form-control"
-                    /> */}
                     <Datetime 
                         onChange={ handleStartDateChange }
                         value={ start }
-                        //isValidDate={ validationDateStart }
                     />
                 </div>
 
                 <div className="form-group">
                     <label>Fecha y hora fin</label>
-                    {/* <DateTimePicker
-                        onChange={ handleEndDateChange }
-                        value={ dateEnd }
-                        minDate={ dateStart }
-                        className="form-control"
-                    /> */}
                     <Datetime 
                         onChange={ handleEndDateChange }
                         value={ endDate }

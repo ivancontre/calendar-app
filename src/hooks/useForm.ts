@@ -1,21 +1,19 @@
-import { FormEvent, useState } from 'react'
+import { ChangeEvent, useState } from 'react';
 
-const useForm = <D>(initialState: any = {}) => {
+const useForm = <T extends Object>(initialState: T) => {
 
-    const [values, setValues] = useState<D>(initialState);
+    const [values, setValues] = useState<T>(initialState);
 
     const reset = () => {
         setValues(initialState);
-    }
+    };
 
-    const handleInputChange = (event: FormEvent<HTMLInputElement> | FormEvent<HTMLTextAreaElement>): void => {
-        const target = event.target as HTMLTextAreaElement | HTMLTextAreaElement;
-
+    const handleInputChange = ({ target }: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
         setValues({
             ...values,
             [target.name]: target.value
-        })
-    }
+        });
+    };
 
     return [values, handleInputChange, reset] as const;
 }
