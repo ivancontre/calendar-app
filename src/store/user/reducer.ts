@@ -4,7 +4,7 @@ const initialState: UserState = {
     users: []
 };
 
-export const userReducer = (state = initialState, action: UserActionTypes): UserState => {
+export const userReducer = (state: typeof initialState = initialState, action: UserActionTypes): UserState => {
 
     switch (action.type) {
 

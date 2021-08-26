@@ -18,7 +18,9 @@ export const Navbar: React.FC = () => {
         Swal.fire({
             title: '¿Seguro que desea salir?',
             showCancelButton: true,
-            confirmButtonText: `Sí`
+            confirmButtonText: 'Sí',
+            cancelButtonText: 'Cancelar'
+
         }).then(result => { 
             if (result.isConfirmed) {
                 dispatch(startLogout());

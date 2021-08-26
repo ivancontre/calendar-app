@@ -1,14 +1,21 @@
-import { CalendarActionTypes, calendarAddNew, calendarClearActive, calendarDelete, CalendarEv, calendarLoad, calendarReset, calendarSetActive, calendarUpdate} from "./types";
+import { CalendarActionTypes, 
+        calendarAddNew, 
+        calendarClearActive, 
+        calendarDelete, 
+        CalendarEv, 
+        calendarLoad, 
+        calendarReset, 
+        calendarSetActive, 
+        CalendarState, 
+        calendarUpdate
+} from "./types";
 
-
-const events: CalendarEv[] = [];
-
-const initialState = {
-    events,
+const initialState: CalendarState = {
+    events: [],
     activeEvent: null
 };
 
-export const calendarReducer = (state = initialState, action: CalendarActionTypes) => {
+export const calendarReducer = (state: typeof initialState = initialState, action: CalendarActionTypes): CalendarState => {
 
     switch (action.type) {
         case calendarAddNew:

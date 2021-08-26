@@ -1,12 +1,12 @@
-import { ModalCloseAction, ModalOpenAction, uiCloseModal, uiOpenModal } from './types';
+import { ModalActionTypes, uiCloseModal, uiOpenModal } from './types';
 
-export const openModal = (): ModalOpenAction => {
+export const openModal = (): ModalActionTypes => {
     return {
         type: uiOpenModal
     }
 };
 
-export const closeModal = (): ModalCloseAction => {
+export const closeModal = (): ModalActionTypes => {
     return {
         type: uiCloseModal
     }

@@ -87,9 +87,9 @@ export const CalendarScreen: React.FC = () => {
             start: info.start as Date,
             endDate: info.end as Date,
             user: {
-                _id: auth._id,
-                name: auth.name,
-                email: auth.email
+                _id: auth._id ? auth._id: '',
+                name: auth.name ? auth.name: '',
+                email: auth.email ? auth.email : ''
             },
             notes: ''
         }

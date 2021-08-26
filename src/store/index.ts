@@ -9,12 +9,9 @@ import { filterReducer } from './filter/reducer';
 
 import { ModalState } from './modal/types';
 import { CalendarState } from './calendar/types';
-import { CalendarUser } from './auth/types';
+import { AuthState } from './auth/types';
 import { UserState } from './user/types';
 import { FilterState } from './filter/types';
-
-
-
 
 declare global {
     interface Window {
@@ -27,10 +24,10 @@ const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOO
 export interface RootState {
     modal: ModalState;
     calendar: CalendarState;
-    auth: CalendarUser;
+    auth: AuthState;
     user: UserState;
     filter: FilterState;
-}
+};
 
 export const rootReducer = combineReducers({
     modal: modalReducer,

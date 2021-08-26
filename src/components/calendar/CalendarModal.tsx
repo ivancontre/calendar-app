@@ -128,9 +128,9 @@ export const CalendarModal: React.FC = () => {
                 start: formValues.start.toDate(),
                 endDate: formValues.endDate.toDate(),
                 user: {
-                    _id: auth._id,
-                    name: auth.name,
-                    email: auth.email
+                    _id: auth._id ? auth._id: '',
+                    name: auth.name ? auth.name: '',
+                    email: auth.email ? auth.email : ''
                 }
             };
 
@@ -142,9 +142,9 @@ export const CalendarModal: React.FC = () => {
                 start: formValues.start.toDate(),
                 endDate: formValues.endDate.toDate(),
                 user: {
-                    _id: auth._id,
-                    name: auth.name,
-                    email: auth.email
+                    _id: auth._id ? auth._id: '',
+                    name: auth.name ? auth.name: '',
+                    email: auth.email ? auth.email : ''
                 }
             };
     

@@ -1,19 +1,18 @@
 export const filterAddUser = '[filter] Add user';
 export const filterDeleteUser = '[filter] Delete user';
 
-export interface FilterState {
+export type FilterState = {
     users: string[];
 };
 
-export interface FilterAddUserAction {
+type FilterAddUserAction = {
     type: typeof filterAddUser;
     payload: string[];
 };
 
-export interface FilterDeleteUserAction {
+type FilterDeleteUserAction = {
     type: typeof filterDeleteUser;
     payload: string;
 };
-
 
 export type FilterActionTypes = FilterAddUserAction | FilterDeleteUserAction;

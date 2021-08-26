@@ -1,15 +1,15 @@
 export const uiOpenModal = '[ui] Open modal';
 export const uiCloseModal = '[ui] Close modal';
 
-export interface ModalState {
+export type ModalState = {
     modalOpen: boolean;
 };
 
-export interface ModalOpenAction {
+type ModalOpenAction = {
     type: typeof uiOpenModal;
 };
 
-export interface ModalCloseAction {
+type ModalCloseAction = {
     type: typeof uiCloseModal;
 };
 

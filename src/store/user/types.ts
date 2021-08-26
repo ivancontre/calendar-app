@@ -2,11 +2,11 @@ import { CalendarUser } from "../auth/types";
 
 export const usersLoad = '[user] Load users';
 
-export interface UserState {
+export type UserState = {
     users: CalendarUser[];
 };
 
-export interface UsersLoadAction {
+type UsersLoadAction = {
     type: typeof usersLoad;
     payload: CalendarUser[];
 };

@@ -9,7 +9,7 @@ export const calendarDelete = '[calendar] Delete';
 export const calendarLoad = '[calendar] Load';
 export const calendarReset = '[calendar] Reset';
 
-export interface CalendarEv {
+export type CalendarEv = {
     id?: string;
     title: string;
     start: Date;
@@ -18,41 +18,41 @@ export interface CalendarEv {
     notes: string;
 };
 
-export interface CalendarState {
+export type CalendarState = {
     events: CalendarEv[];
-    activeEvent: CalendarEv
+    activeEvent: CalendarEv | null
 };
 
-export interface CalendarAddNewAction {    
+type CalendarAddNewAction = {    
     type: typeof calendarAddNew,
     payload: CalendarEv
 };
 
-export interface CalendarSetActiveAction {    
+type CalendarSetActiveAction = {    
     type: typeof calendarSetActive,
     payload: CalendarEv
 };
 
-export interface CalendarClearActiveAction {
+type CalendarClearActiveAction = {
     type: typeof calendarClearActive
 };
 
-export interface CalendarUpdateAction {
+type CalendarUpdateAction = {
     type: typeof calendarUpdate,
     payload: CalendarEv
 };
 
-export interface CalendarDeleteAction {
+type CalendarDeleteAction = {
     type: typeof calendarDelete,
     payload: string
 };
 
-export interface CalendarLoadAction {
+type CalendarLoadAction = {
     type: typeof calendarLoad,
     payload: CalendarEv[]
 };
 
-export interface CalendarResetAction {
+type CalendarResetAction = {
     type: typeof calendarReset
 };
 

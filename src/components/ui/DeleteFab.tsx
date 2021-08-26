@@ -22,7 +22,8 @@ export const DeleteFab: React.FC = () => {
             Swal.fire({
                 title: '¿Seguro que desea eliminar el evento?',
                 showCancelButton: true,
-                confirmButtonText: `Sí`
+                confirmButtonText: 'Sí',
+                cancelButtonText: 'Cancelar'
             }).then(result => { 
                 if (result.isConfirmed && activeEvent?.id) {
                     dispatch(startDelete(activeEvent.id));

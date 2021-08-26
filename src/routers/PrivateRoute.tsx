@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-export interface ProtectedRouteProps extends RouteProps {
+type ProtectedRouteProps = RouteProps & {
     isAuthenticated: boolean;
 };
 

@@ -4,7 +4,7 @@ const initialState: FilterState = {
     users: []
 };
 
-export const filterReducer = (state = initialState, action: FilterActionTypes): FilterState => {
+export const filterReducer = (state: typeof initialState = initialState, action: FilterActionTypes): FilterState => {
 
     switch (action.type) {
 
