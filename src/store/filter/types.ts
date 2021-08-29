@@ -1,18 +1,23 @@
 export const filterAddUser = '[filter] Add user';
 export const filterDeleteUser = '[filter] Delete user';
+export const filterUserReset = '[filter] Reset user';
+
+export type FilterUser = {
+    _id: string;
+    name: string;
+}
 
 export type FilterState = {
-    users: string[];
+    users: FilterUser[];
 };
 
 type FilterAddUserAction = {
     type: typeof filterAddUser;
-    payload: string[];
+    payload: FilterUser[];
 };
 
-type FilterDeleteUserAction = {
-    type: typeof filterDeleteUser;
-    payload: string;
-};
+type FilterUserReset = {
+    type: typeof filterUserReset;
+}
 
-export type FilterActionTypes = FilterAddUserAction | FilterDeleteUserAction;
+export type FilterActionTypes = FilterAddUserAction | FilterUserReset;

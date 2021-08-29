@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { RootState } from '../../store';
 import { startLogout } from '../../store/auth/action';
 import { reset } from '../../store/calendar/actions';
+import { resetUserFilter } from '../../store/filter/action';
 
 export const Navbar: React.FC = () => {
 
@@ -25,6 +26,7 @@ export const Navbar: React.FC = () => {
             if (result.isConfirmed) {
                 dispatch(startLogout());
                 dispatch(reset());
+                dispatch(resetUserFilter());
             }
 
         }).catch(error => {

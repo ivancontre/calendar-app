@@ -1,4 +1,4 @@
-import { FilterActionTypes, filterAddUser, FilterState } from "./types";
+import { FilterActionTypes, filterAddUser, FilterState, filterUserReset } from "./types";
 
 const initialState: FilterState = {
     users: []
@@ -13,7 +13,12 @@ export const filterReducer = (state: typeof initialState = initialState, action:
                 ...state,
                 users: [...action.payload]
 
-            }
+            };
+
+        case filterUserReset:
+            return {
+                ...initialState
+            };
     
         default:
             return state;

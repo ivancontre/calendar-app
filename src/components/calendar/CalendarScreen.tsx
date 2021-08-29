@@ -48,7 +48,18 @@ export const CalendarScreen: React.FC = () => {
 
     useEffect(() => {
 
-        const events: CalendarEv[] = users.length ? eventsAll.filter(event => users.includes(event.user._id)) : eventsAll;
+        let events: CalendarEv[];
+
+        if (users.length) {
+
+            const usersIds = users.map(user => user._id);
+
+            events = eventsAll.filter(event => usersIds.includes(event.user._id));
+
+        } else {
+            events = eventsAll;
+        }
+
         setEventsFiltered(events);   
 
     }, [users, eventsAll]);

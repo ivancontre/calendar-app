@@ -1,15 +1,14 @@
-import { FilterActionTypes, filterAddUser, filterDeleteUser } from "./types";
+import { FilterActionTypes, filterAddUser, filterUserReset, FilterUser } from "./types";
 
-export const addUserFilter = (ids: string[]): FilterActionTypes => {
+export const addUserFilter = (ids: FilterUser[]): FilterActionTypes => {
     return {
         type: filterAddUser,
         payload: ids
     }
 };
 
-export const deleteUserFilter = (id: string): FilterActionTypes => {
+export const resetUserFilter = (): FilterActionTypes => {
     return {
-        type: filterDeleteUser,
-        payload: id
+        type: filterUserReset
     }
 };

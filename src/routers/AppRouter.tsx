@@ -28,7 +28,6 @@ export const AppRouter: React.FC = () => {
         return (<h1>Espere...</h1>)
     }
 
-    console.log('existsUID', existsUID)
     return (
         <Router>
             <div>
