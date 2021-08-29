@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "https://ivancontre.github.io/calendar-app/static/css/main.8141b93d.chunk.css",
-    "main.js": "https://ivancontre.github.io/calendar-app/static/js/main.c934c208.chunk.js",
-    "main.js.map": "https://ivancontre.github.io/calendar-app/static/js/main.c934c208.chunk.js.map",
+    "main.js": "https://ivancontre.github.io/calendar-app/static/js/main.cf1deaba.chunk.js",
+    "main.js.map": "https://ivancontre.github.io/calendar-app/static/js/main.cf1deaba.chunk.js.map",
     "runtime-main.js": "https://ivancontre.github.io/calendar-app/static/js/runtime-main.6297062f.js",
     "runtime-main.js.map": "https://ivancontre.github.io/calendar-app/static/js/runtime-main.6297062f.js.map",
-    "static/css/2.f707e5f5.chunk.css": "https://ivancontre.github.io/calendar-app/static/css/2.f707e5f5.chunk.css",
-    "static/js/2.4f56e3ff.chunk.js": "https://ivancontre.github.io/calendar-app/static/js/2.4f56e3ff.chunk.js",
-    "static/js/2.4f56e3ff.chunk.js.map": "https://ivancontre.github.io/calendar-app/static/js/2.4f56e3ff.chunk.js.map",
+    "static/css/2.e7129bec.chunk.css": "https://ivancontre.github.io/calendar-app/static/css/2.e7129bec.chunk.css",
+    "static/js/2.d5effdbc.chunk.js": "https://ivancontre.github.io/calendar-app/static/js/2.d5effdbc.chunk.js",
+    "static/js/2.d5effdbc.chunk.js.map": "https://ivancontre.github.io/calendar-app/static/js/2.d5effdbc.chunk.js.map",
     "index.html": "https://ivancontre.github.io/calendar-app/index.html",
-    "precache-manifest.2dde66db62c8b1f6fe05e786599047b8.js": "https://ivancontre.github.io/calendar-app/precache-manifest.2dde66db62c8b1f6fe05e786599047b8.js",
+    "precache-manifest.f743d3c28411890bf9786bbc8bb9d61d.js": "https://ivancontre.github.io/calendar-app/precache-manifest.f743d3c28411890bf9786bbc8bb9d61d.js",
     "service-worker.js": "https://ivancontre.github.io/calendar-app/service-worker.js",
-    "static/css/2.f707e5f5.chunk.css.map": "https://ivancontre.github.io/calendar-app/static/css/2.f707e5f5.chunk.css.map",
+    "static/css/2.e7129bec.chunk.css.map": "https://ivancontre.github.io/calendar-app/static/css/2.e7129bec.chunk.css.map",
     "static/css/main.8141b93d.chunk.css.map": "https://ivancontre.github.io/calendar-app/static/css/main.8141b93d.chunk.css.map",
-    "static/js/2.4f56e3ff.chunk.js.LICENSE.txt": "https://ivancontre.github.io/calendar-app/static/js/2.4f56e3ff.chunk.js.LICENSE.txt"
+    "static/js/2.d5effdbc.chunk.js.LICENSE.txt": "https://ivancontre.github.io/calendar-app/static/js/2.d5effdbc.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.6297062f.js",
-    "static/css/2.f707e5f5.chunk.css",
-    "static/js/2.4f56e3ff.chunk.js",
+    "static/css/2.e7129bec.chunk.css",
+    "static/js/2.d5effdbc.chunk.js",
     "static/css/main.8141b93d.chunk.css",
-    "static/js/main.c934c208.chunk.js"
+    "static/js/main.cf1deaba.chunk.js"
   ]
 }
