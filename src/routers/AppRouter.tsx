@@ -29,7 +29,7 @@ export const AppRouter: React.FC = () => {
     }
 
     return (
-        <Router>
+        <Router basename={process.env.PUBLIC_URL}>
             <div>
                 <Switch>
                     <PublicRoute isAuthenticated={ existsUID } component={ AuthRouter } path="/auth" />
